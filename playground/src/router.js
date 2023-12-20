@@ -1,5 +1,4 @@
 import HomePage from "./views/HomePage.vue";
-import PokedexPage from "./views/PokedexPage.vue";
 
 export const routes = [
   {
@@ -8,6 +7,10 @@ export const routes = [
   },
   {
     path: "/pokedex",
-    component: PokedexPage,
+    component: () => import("./views/PokedexPage.vue")
+  },
+  {
+    path: "/pokedex/:id",
+    component: () => import("./views/PokemonPage.vue"),
   },
 ];

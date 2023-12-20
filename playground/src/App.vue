@@ -1,22 +1,26 @@
 <script setup>
 import BaseCounter from "./components/base-counter.vue";
 import UserCard from "./components/user-card.vue";
-import { ref } from "vue";
+import { useCount } from "@/composables/countStore";
+import { ref, watch } from "vue";
 
-const colorPreference = ref("white");
+const colorPreference = ref("black");
+const countStore = useCount();
+watch(countStore.globalCount, (newVal) => {
+  console.log("globalCount changed to", newVal);
+});
 </script>
 
 <template>
   <div class="wrapper">
-    <nav>
-      <router-link to="/">Home</router-link>
-      <router-link to="/pokedex">Pokedex</router-link>
-    </nav>
-    <router-view />
+    <router-link to="/">Home</router-link> |
+    <router-link to="/pokedex">Pokedex</router-link>
+    <h2>{{ countStore.globalCount }}</h2>
     <h2>{{ colorPreference }}</h2>
     <input type="color" v-model="colorPreference" />
     <BaseCounter />
     <UserCard :user="{ name: 'Ben', food: 'Ramen' }" />
+  
   </div>
 </template>
 
